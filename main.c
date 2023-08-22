@@ -3,7 +3,7 @@ void sigint_handler(int signum)
 {
         (void)signum;
 
-        write(STDOUT_FILENO, "\n&& ", 4);
+        /* write(STDOUT_FILENO, "\n&& ", 4); */
         exit(0);
 }
 /**
@@ -23,7 +23,7 @@ int main(void)
 
         while (i == 1)
         {
-                write(STDOUT_FILENO, "&& ", 3);
+                /* write(STDOUT_FILENO, "&& ", 3); */
                 fflush(stdout);
                 buffer = read_line(&nread);
                 if (nread != -1)
