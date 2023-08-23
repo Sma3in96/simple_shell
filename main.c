@@ -1,4 +1,10 @@
 #include "main.h"
+/**
+ * sigint_handler - sginal
+ * @signum
+ *
+ * Return : void
+ */
 void sigint_handler(int signum) 
 {
         (void)signum;
@@ -31,11 +37,12 @@ int main(void)
                         if (fail == 0)
                                 continue;
                         fflush(stdout);
-                        free(buffer);
                 }
                 else
                 {
                         i = 0;
+			if (buffer != NULL)
+				free(buffer);
                 }
         }
         return (0);
