@@ -11,6 +11,29 @@ int check_exit(char **tokens)
 	return(1);
 }
 /**
+ * _envcommand - print env var
+ * @tokens: string
+ * Return: int
+ */
+int _envcommand(char **tokens)
+{
+	char **env = environ;
+	size_t len;
+
+	if (_strcmp(tokens[0], "env") == 0)
+	{
+		while (*env)
+		{
+		len = strlen(*env);
+		write(STDOUT_FILENO, *env, len);
+		write(STDOUT_FILENO, "\n", 1);
+		env++;
+		}
+		return (1);
+	}
+	return (0);
+}
+/**
  * get_command
  */
 int get_command(char *buffer)
@@ -35,7 +58,9 @@ int get_command(char *buffer)
 	exitflag = check_exit(tokens);
 	if (exitflag == 0)
 		return (100);
-        pathflag = is_it_path(tokens[0]);
+        if (_envcommand(tokens) == 1)
+		return (0);
+	pathflag = is_it_path(tokens[0]);
         if (pathflag == 1)
         {
                 return (check_add_path(tokens));

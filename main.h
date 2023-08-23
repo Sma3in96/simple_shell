@@ -10,6 +10,7 @@
 #include <dirent.h>
 #include <signal.h>
 
+extern char **environ;
 
 int is_it_path(char *str);
 int check_add_path(char **str);
