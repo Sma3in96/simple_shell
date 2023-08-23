@@ -12,13 +12,11 @@
 
 
 int is_it_path(char *str);
-char **convert_path(char *pathraw);
-char *check_add_path(char *str, char **path);
+int check_add_path(char **str);
 int get_argc(char *buffer2, int nread); 
-char **get_command(char *buffer, int argcount);
+int get_command(char *buffer);
 void freefunction (char *buffer, char **command1);
-int excute_command(char **command, char **__environ);
-char *read_line (int *nread);
+int excute_command(char *pathcmd, char **command, char **__environ);
 void sigint_handler(int signum);
 
 /* str_functions*/
@@ -34,3 +32,4 @@ char *_strcat(char *dest, char *src);
 char *_strstr(char *haystack, char *needle);
 
 #endif
+

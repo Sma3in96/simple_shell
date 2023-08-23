@@ -12,14 +12,11 @@ void sigint_handler(int signum)
 */
 int main(void)
 {
-        int i = 1, nread = 0, argcount = 0, j = 1, pathflag = 0;
-        char *buffer;
-        char **command;
-        char *pathraw;
-        char **path; 
-        
-        pathraw = getenv("PATH");
-        path = convert_path(pathraw);
+        int i = 1, nread = 0;
+        size_t len = 0;
+        char *buffer = NULL;
+        int fail;
+
         signal(SIGINT, sigint_handler);
 
         while (i == 1)
@@ -27,32 +24,14 @@ int main(void)
                 if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "&& ", 3);
                 fflush(stdout);
-                buffer = read_line(&nread);
+                nread = getline(&buffer, &len, stdin);
                 if (nread != -1)
                 {
-                        argcount = get_argc(buffer, nread);
-                        command = get_command(buffer, argcount);
-                        if (command == NULL)
+                        fail = get_command(buffer);
+                        if (fail == 0)
                                 continue;
-                        if (command[0] == NULL)
-                                continue;
-                        pathflag = is_it_path(command[0]);
-                        if (pathflag == 1)
-                                command[0] = check_add_path(command[0], path);
-                        if (pathflag == 2)
-                                continue;
-                        if (command[0] == NULL)
-                        {
-                                while (command[j] != NULL )
-                                {
-                                        free(command[j]);
-                                        j++;
-                                }
-                                free(command);
-                        }
-                        excute_command(command, __environ);
-                        freefunction(NULL, command);
                         fflush(stdout);
+                        free(buffer);
                 }
                 else
                 {

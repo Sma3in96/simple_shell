@@ -2,45 +2,40 @@
 /**
  * get_command
  */
-char **get_command(char *buffer, int argcount)
+int get_command(char *buffer)
 {
-        char *token = NULL;
-        char **command;
-        int i = 1, j = 0;
+        int i = 1, pathflag;
+        char *tokens[32];
+        char *token;
 
-        if (buffer == NULL)
-                return (NULL);
-
-        command = malloc(argcount * sizeof(char *));
-        if (command == NULL)
-                return (NULL);
+        if (tokens == NULL)
+        {
+                return(0);
+        }
 
         token = _strtok(buffer, " \n");
-        if (token == NULL)
+        tokens[0] = token;
+
+        for (i = 1; token != NULL; i++)
         {
-                command[0] = NULL;
-                return (NULL);
+                token = _strtok(NULL, " \n");
+                tokens[i] = token;
         }
-        command[0] = malloc((_strlen(token) + 1) * sizeof(char));
-        if (command[0] == NULL)
+
+        pathflag = is_it_path(tokens[0]);
+        if (pathflag == 1)
         {
-                free(command);
-                return(NULL);
+                return (check_add_path(tokens));
         }
-        _strcpy(command[0], token);
-        while ((token = _strtok(NULL, " \n")) != NULL)
-        {
-                command[i] = malloc((_strlen(token) + 1) * sizeof(char));
-                if (command[i] == NULL)
-                {
-                        for (j = 0; j < i; j++)
-                                free(command[j]);
-                        free(command);
-                        break;
-                }
-                _strcpy(command[i], token);
-                i++;
-        }
-        command[i] = NULL;
-        return (command);
+        if (pathflag == 2)
+                return (0);
+        if (pathflag == 0)
+                excute_command(tokens[0], tokens, __environ);
+        
+        free(token);
+
+
+        return (1);
+
 }
+

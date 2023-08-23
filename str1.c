@@ -41,18 +41,19 @@ char *_strstr(char *haystack, char *needle)
  */
 char *_strcat(char *dest, char *src)
 {
-	int i = 0;
-	int j = 0;
+	int i;
+	int j;
 
-	while (*(dest + i))
+	for (i = 0; dest[i] != '\0'; i++)
+		;
+
+	for (j = 0; src[j] != '\0'; j++)
 	{
-	i++;
+		dest[i] = src[j];
+		i++;
 	}
-	while (*(src + j))
-	{
-	*(dest + i + j) = *(src + j);
-	j++;
-	}
+
+	dest[i] = '\0';
 	return (dest);
 }
 /**
@@ -116,3 +117,4 @@ char *_strcpy(char *dest, char *src)
 	*(dest + i) = *(src + i);
 	return (dest);
 }
+

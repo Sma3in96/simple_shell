@@ -1,15 +1,16 @@
 #include "main.h"
-char *lookforcmd(char *str, char **path)
+char *lookforcmd(char *str)
 {
         int index = 0;
         DIR *dir;
         struct dirent *dossier;
         int found = 0;
+        char *token;
         
-
-        while (path[index] != NULL)
+        token = _strtok(getenv("PATH"), ":");
+        while (token != NULL)
         {
-                dir = opendir(path[index]);
+                dir = opendir(token);
                 if (dir == NULL)
                 {
                         perror("opendir");
@@ -20,6 +21,7 @@ char *lookforcmd(char *str, char **path)
                         if (dossier->d_type == DT_REG && _strcmp(dossier->d_name, str) == 0)
                         {
                                 found = -1;
+                                closedir(dir);
                                 break;
                         }
 
@@ -27,27 +29,39 @@ char *lookforcmd(char *str, char **path)
                 if (found == -1)
                         break;
                 index++;
+                closedir(dir);
+                token = _strtok(NULL, ":");
         }
         if (found != -1)
         {
-                /* errorfunction("not found"); */
+                write(STDERR_FILENO, "command not found\n", 18);
                 return (NULL);
         }
-        return(path[index]);
+        return(token);
 }
 
-char *check_add_path(char *str, char **path)
+int check_add_path(char **str)
 {
         char *pathcmd;
         char *directory;
 
-        if (str == NULL || path == NULL)
-                return(NULL);
-        directory = lookforcmd(str, path);
-        pathcmd = malloc(strlen(str) + strlen(directory) + 2 );
+        if (str[0] == NULL)
+                return(0);
+        directory = lookforcmd(str[0]);
+        if (directory == NULL)
+                return (0);
+        pathcmd = malloc(sizeof(char) * (_strlen(str[0]) + _strlen(directory) + 2));
+        if (pathcmd == NULL)
+        {
+                free(pathcmd);
+                return (0);
+        }
         pathcmd = _strcpy(pathcmd, directory);
         pathcmd = _strcat(pathcmd, "/");
-        pathcmd = _strcat(pathcmd, str);
-        pathcmd[_strlen(str) + _strlen(directory) +1] = '\0';
-        return (pathcmd);
+        pathcmd = _strcat(pathcmd, str[0]);
+        excute_command(pathcmd, str, __environ);
+
+        free(pathcmd);
+
+        return (1);
 }
