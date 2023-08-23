@@ -3,7 +3,7 @@ void sigint_handler(int signum)
 {
         (void)signum;
 	
-	if (isatty(STDIN_FILENO)
+	if (isatty(STDIN_FILENO))
         	write(STDOUT_FILENO, "\n&& ", 4);
         exit(0);
 }
