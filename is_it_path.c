@@ -1,6 +1,7 @@
 #include "main.h"
 /**
  * is_it_path - is it a path or not
+ * @str: string
 */
 int is_it_path(char *str)
 {
