@@ -91,9 +91,9 @@ int _strcmp(char *s1, char *s2)
 
 	while (j == 0)
 	{
-		if (!*(s1 + i) && !*(s2 + i))
+		if (!s1[i] && !s2[i])
 			break;
-		j = *(s1 + i) - *(s2 + i);
+		j = s1[i] - s2[i];
 		i++;
 	}
 	return (j);
@@ -117,4 +117,3 @@ char *_strcpy(char *dest, char *src)
 	*(dest + i) = *(src + i);
 	return (dest);
 }
-

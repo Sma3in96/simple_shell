@@ -4,9 +4,9 @@
  * @tokens: command
  * Return: int
  */
-int check_exit(char **tokens)
+int check_exit(char *token)
 {
-	if (_strcmp(tokens[0], "exit") == 0)
+	if (_strcmp(token, "exit") == 0)
 		return (0);
 	return(1);
 }
@@ -15,12 +15,12 @@ int check_exit(char **tokens)
  * @tokens: string
  * Return: int
  */
-int _envcommand(char **tokens)
+int _envcommand(char *token)
 {
 	char **env = environ;
 	size_t len;
 
-	if (_strcmp(tokens[0], "env") == 0)
+	if (_strcmp(token, "env") == 0)
 	{
 		while (*env)
 		{
@@ -55,10 +55,13 @@ int get_command(char *buffer)
                 token = _strtok(NULL, " \n");
                 tokens[i] = token;
         }
-	exitflag = check_exit(tokens);
-	if (exitflag == 0)
-		return (100);
-        if (_envcommand(tokens) == 1)
+        if (tokens[0] != NULL)
+	{
+                exitflag = check_exit(tokens[0]);
+	        if (exitflag == 0)
+		        return (100);
+        }
+        if (tokens[0] && _envcommand(tokens[0]) == 1)
 		return (0);
 	pathflag = is_it_path(tokens[0]);
         if (pathflag == 1)
@@ -76,4 +79,3 @@ int get_command(char *buffer)
         return (1);
 
 }
-
