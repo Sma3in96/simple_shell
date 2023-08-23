@@ -34,8 +34,11 @@ int main(void)
                 if (nread != -1)
                 {
                         fail = get_command(buffer);
-                        if (fail == 0)
-                                continue;
+                        if (fail == 100)
+                        {
+				free(buffer);
+				exit(0);
+			}
                         fflush(stdout);
                 }
                 else

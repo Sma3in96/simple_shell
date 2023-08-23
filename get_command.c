@@ -1,10 +1,21 @@
 #include "main.h"
 /**
+ * check_exit - check for exit
+ * @tokens: command
+ * Return: int
+ */
+int check_exit(char **tokens)
+{
+	if (_strcmp(tokens[0], "exit") == 0)
+		return (0);
+	return(1);
+}
+/**
  * get_command
  */
 int get_command(char *buffer)
 {
-        int i = 1, pathflag;
+        int i = 1, pathflag, exitflag;
         char *tokens[32];
         char *token;
 
@@ -21,7 +32,9 @@ int get_command(char *buffer)
                 token = _strtok(NULL, " \n");
                 tokens[i] = token;
         }
-
+	exitflag = check_exit(tokens);
+	if (exitflag == 0)
+		return (100);
         pathflag = is_it_path(tokens[0]);
         if (pathflag == 1)
         {
