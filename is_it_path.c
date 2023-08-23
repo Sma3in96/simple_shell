@@ -2,6 +2,7 @@
 /**
  * is_it_path - is it a path or not
  * @str: string
+ * Return: int
 */
 int is_it_path(char *str)
 {

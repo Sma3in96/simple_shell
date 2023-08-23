@@ -1,7 +1,7 @@
 #include "main.h"
 /**
  * sigint_handler - sginal
- * @signum
+ * @signum:
  *
  * Return : void
  */
