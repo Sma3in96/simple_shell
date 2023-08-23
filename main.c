@@ -14,7 +14,8 @@ void sigint_handler(int signum)
         exit(0);
 }
 /**
- * main
+ * main - entry point
+ * Return: int
 */
 int main(void)
 {
