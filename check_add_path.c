@@ -1,4 +1,9 @@
 #include "main.h"
+/**
+ * lookforcmd - look for command
+ * @str: string
+ * Return: string
+ */
 char *lookforcmd(char *str)
 {
         int index = 0;
@@ -39,7 +44,11 @@ char *lookforcmd(char *str)
         }
         return(token);
 }
-
+/**
+ * check_add_path - check path
+ * @str: double pointer
+ * Return: int
+ */
 int check_add_path(char **str)
 {
         char *pathcmd;

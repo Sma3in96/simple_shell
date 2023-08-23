@@ -1,6 +1,10 @@
 #include "main.h"
 /**
- * excute_command -
+ * excute_command - excute commands
+ * @pathcmd: string
+ * @command1: string
+ * @__environ: var
+ * Return: int
  */
 int excute_command(char *pathcmd, char **command1, char **__environ)
 {
