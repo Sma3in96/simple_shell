@@ -1,7 +1,7 @@
 #include "main.h"
 /**
  * check_exit - check for exit
- * @tokens: command
+ * @token: command
  * Return: int
  */
 int check_exit(char *token)
@@ -12,7 +12,7 @@ int check_exit(char *token)
 }
 /**
  * _envcommand - print env var
- * @tokens: string
+ * @token: string
  * Return: int
  */
 int _envcommand(char *token)
@@ -34,7 +34,9 @@ int _envcommand(char *token)
 	return (0);
 }
 /**
- * get_command
+ * get_command - get command to exe
+ * @buffer: string
+ * Return: int
  */
 int get_command(char *buffer)
 {
