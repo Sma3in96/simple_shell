@@ -24,7 +24,7 @@ int main(void)
 
         while (i == 1)
         {
-                if (isatty(STDIN_FILENO)
+                if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "&& ", 3);
                 fflush(stdout);
                 buffer = read_line(&nread);
