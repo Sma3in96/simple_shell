@@ -74,44 +74,49 @@ int coom(char str[], const char *delim)
  *
  * Return: string splited.
  */
-char *_strtok(char str[], const char *delim)
+char *_strtok(char string[], const char *del)
 {
 	static char *splitted, *str_end;
-	char *str_start;
-	unsigned int i, bool;
+	char *sstart;
+	unsigned int i; 
+	unsigned int bo;
 
-	if (str != NULL)
+	if (string != NULL)
 	{
-		if (coom(str, delim))
+		if (coom(string, del))
 			return (NULL);
-		splitted = str;
-		i = _strlen(str);
-		str_end = &str[i];
+		splitted = string;
+		i = _strlen(string);
+		str_end = &string[i];
 	}
-	str_start = splitted;
-	if (str_start == str_end)
+	sstart = splitted;
+	if (sstart == str_end)
 		return (NULL);
 
-	for (bool = 0; *splitted; splitted++)
+	for (bo = 0; *splitted; splitted++)
 	{
-		if (splitted != str_start)
+		if (splitted != sstart)
 			if (*splitted && *(splitted - 1) == '\0')
 				break;
 
-		for (i = 0; delim[i]; i++)
+		for (i = 0; del[i]; i++)
 		{
-			if (*splitted == delim[i])
+			if (*splitted == del[i])
 			{
 				*splitted = '\0';
-				if (splitted == str_start)
-					str_start++;
+				if (splitted == sstart)
+					sstart++;
 				break;
 			}
 		}
-		if (bool == 0 && *splitted)
-			bool = 1;
+		if (bo == 0 && *splitted)
+		{
+			bo = 1;
+		}
 	}
-	if (bool == 0)
+	if (bo == 0)
+	{
 		return (NULL);
-	return (str_start);
+	}
+	return (sstart);
 }
